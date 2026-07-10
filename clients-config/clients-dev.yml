@@ -1,0 +1,19 @@
+# Configuración para ambiente de desarrollo
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/clientsdb
+      auto-index-creation: true
+  webflux:
+    log-request-details: true
+
+logging:
+  level:
+    root: DEBUG
+    org.nttdata.bank.clients: DEBUG
+    org.springframework.data.mongodb: DEBUG
+    org.springframework.web: DEBUG
+
+server:
+  port: 8081
+
