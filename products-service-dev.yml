@@ -1,21 +1,22 @@
-# Configuración compartida para todos los ambientes del servicio de clientes
 spring:
   application:
-    name: clients-service
+    name: products-service
   data:
     mongodb:
+      uri: mongodb://localhost:27017/productsdb
       auto-index-creation: true
+  webflux:
+    log-request-details: false
 
 logging:
   level:
     root: INFO
-    org.nttdata.bank.clients: DEBUG
-    org.springframework.data.mongodb: DEBUG
+    org.nttdata.bank.products: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file:
-    name: logs/clients-service.log
+    name: logs/products-service.log
   logback:
     rollingpolicy:
       max-file-size: 10MB
@@ -26,9 +27,6 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
-    enabled: true
-    operations-sorter: method
-    tags-sorter: alpha
 
 server:
   port: 8082
