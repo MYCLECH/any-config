@@ -34,5 +34,5 @@ springdoc:
     tags-sorter: alpha
 
 server:
-  port: 8081
+  port: 8079
 
