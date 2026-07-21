@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: notifications-audit-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: notifications-audit-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+    properties:
+      schema.registry.url: http://localhost:8081
+      specific.avro.reader: true
+
+logging:
+  level:
+    root: INFO
+    org.nttdata.bank.notifications: DEBUG
+
+server:
+  port: 8086
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+

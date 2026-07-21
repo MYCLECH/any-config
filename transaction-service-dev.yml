@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: transactions-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/transactionsdb
+      auto-index-creation: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    properties:
+      schema.registry.url: http://localhost:8081
+      auto.register.schemas: true
+
+logging:
+  level:
+    root: INFO
+    org.nttdata.bank.transactions: DEBUG
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+security:
+  jwt:
+    secret-base64: c3VwZXItc2VjcmV0LWtleS13aXRoLWxlbmd0aC1mb3Itand0LTMxLXNpemU=
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+server:
+  port: 8083
+
+products:
+  service:
+    base-url: http://localhost:8082
+

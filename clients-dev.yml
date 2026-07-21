@@ -5,6 +5,11 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017/clientsdb
       auto-index-creation: true
+    redis:
+      host: localhost
+      port: 6379
+  kafka:
+    bootstrap-servers: localhost:9092
   webflux:
     log-request-details: true
 
@@ -32,6 +37,27 @@ springdoc:
     enabled: true
     operations-sorter: method
     tags-sorter: alpha
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+resilience4j:
+  timelimiter:
+    instances:
+      clientsService:
+        timeout-duration: 2s
+  circuitbreaker:
+    instances:
+      clientsService:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+
+security:
+  jwt:
+    secret-base64: c3VwZXItc2VjcmV0LWtleS13aXRoLWxlbmd0aC1mb3Itand0LTMxLXNpemU=
 
 server:
   port: 8079

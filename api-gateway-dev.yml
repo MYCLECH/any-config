@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: clients-service
+          uri: lb://clients-service
+          predicates:
+            - Path=/clients/**
+          filters:
+            - RewritePath=/clients/(?<segment>.*), /${segment}
+        - id: products-service
+          uri: lb://products-service
+          predicates:
+            - Path=/products/**
+          filters:
+            - RewritePath=/products/(?<segment>.*), /${segment}
+        - id: transactions-service
+          uri: lb://transactions-service
+          predicates:
+            - Path=/transactions/**
+          filters:
+            - RewritePath=/transactions/(?<segment>.*), /${segment}
+        - id: yanki-wallet-service
+          uri: lb://yanki-wallet-service
+          predicates:
+            - Path=/yanki/**
+          filters:
+            - RewritePath=/yanki/(?<segment>.*), /${segment}
+        - id: notification-audit-service
+          uri: lb://notification-audit-service
+          predicates:
+            - Path=/notifications/**
+          filters:
+            - RewritePath=/notifications/(?<segment>.*), /${segment}
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+security:
+  jwt:
+    secret-base64: c3VwZXItc2VjcmV0LWtleS13aXRoLWxlbmd0aC1mb3Itand0LTMxLXNpemU=
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
